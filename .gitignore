@@ -1,0 +1,16 @@
+/locale-check
+/debian/tmp
+/debian/files
+/debian/changelog
+/debian/.debhelper
+/debian/*.log
+/debian/leios-branding-meta-files
+
+leios-branding-meta-files_*.dsc
+leios-branding-meta-files_*.tar.xz
+leios-branding-meta-files_*.deb
+leios-branding-meta-files_*.changes
+leios-branding-meta-files_*.buildinfo
+leios-branding-meta-files_*.udeb
+leios-branding-meta-files_*.tar.gz
+leios-branding-meta-files_*.xz
