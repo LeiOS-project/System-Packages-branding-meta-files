@@ -25,3 +25,6 @@ INSERT_LEIOS_RELEASE=$(echo $1) dpkg-buildpackage -us -uc
 
 # Cleanup
 rm -f debian/changelog
+
+mkdir -p ./build/
+mv ../leios-branding-meta-files_* ./build/

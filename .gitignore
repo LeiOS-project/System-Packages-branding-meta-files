@@ -6,6 +6,7 @@
 /debian/*.log
 /debian/leios-branding-meta-files
 
+build/
 leios-branding-meta-files_*.dsc
 leios-branding-meta-files_*.tar.xz
 leios-branding-meta-files_*.deb
