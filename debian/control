@@ -4,6 +4,7 @@ Priority: required
 Maintainer: Linus Fischer <leicraft@leicraftmc.de>
 Standards-Version: 4.7.2
 Build-Depends: debhelper-compat (= 13), debhelper (>= 13.10~)
+Homepage: https://git.leicraftmc.de/LeiOS/System-Packages/branding-meta-files
 Vcs-Git: https://git.leicraftmc.de/LeiOS/System-Packages/branding-meta-files.git
 Vcs-Browser: https://git.leicraftmc.de/LeiOS/System-Packages/branding-meta-files
 Rules-Requires-Root: no
@@ -15,9 +16,6 @@ Depends: ${misc:Depends}
 Essential: yes
 Priority: required
 Multi-Arch: foreign
-Description: LeiOS and Debian base system miscellaneous files
- This package contains the basic filesystem hierarchy of a LeiOS system, and
- several important miscellaneous files, such as /etc/debian_version,
- /etc/host.conf, /etc/issue, /etc/motd, /etc/profile, and others,
- and the text of several common licenses in use on LeiOS systems.
- Based on https://salsa.debian.org/sanvila/base-files
+Description: Metadata files for LeiOS branding to dynamically update brandings like /etc/os-release
+ This package contains metadata files used for LeiOS branding, allowing dynamic updates
+ of branding information such as /etc/os-release and related files.
