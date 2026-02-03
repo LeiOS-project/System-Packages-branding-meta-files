@@ -2,3 +2,6 @@
 
 %:
 	dh $@
+
+override_dh_auto_install:
+	install -p -m 644 data/*    $(DESTDIR)/usr/share/leios/system/branding-meta/data
