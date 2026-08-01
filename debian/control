@@ -2,11 +2,11 @@ Source: leios.system.branding-meta-files
 Section: admin
 Priority: required
 Maintainer: LeiOS Project Team <support@leios.dev>
-Build-Depends: debhelper-compat (= 13),
+Build-Depends: debhelper-compat (= 13)
 Standards-Version: 4.7.2
-Homepage: https://git.leicraftmc.de/LeiOS/System-Packages/branding-meta-files
-Vcs-Git: https://git.leicraftmc.de/LeiOS/System-Packages/branding-meta-files.git
-Vcs-Browser: https://git.leicraftmc.de/LeiOS/System-Packages/branding-meta-files
+Homepage: https://git.leicraftmc.de/LeiOS/System-Packages/Branding-Meta-Files
+Vcs-Git: https://git.leicraftmc.de/LeiOS/System-Packages/Branding-Meta-Files.git
+Vcs-Browser: https://git.leicraftmc.de/LeiOS/System-Packages/Branding-Meta-Files
 Rules-Requires-Root: no
 
 Package: leios.system.branding-meta-files

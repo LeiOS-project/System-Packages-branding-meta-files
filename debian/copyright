@@ -1,7 +1,7 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: leios.theme.grub-theme
+Upstream-Name: leios.system.branding-meta-files
 Upstream-Contact: LeiOS Project Team <support@leios.dev>
-Source: https://git.leicraftmc.de/LeiOS/Theme-Packages/Grub-Theme
+Source: https://git.leicraftmc.de/LeiOS/System-Packages/Branding-Meta-Files
 
 Files: *
 Copyright: 2026 LeiOS Project Team <support@leios.dev>
