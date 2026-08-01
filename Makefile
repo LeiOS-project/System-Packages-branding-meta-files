@@ -1,9 +1,18 @@
-# LeiOS Grub Theme — build, package, install and test helpers.
+# LeiOS System Branding Meta Files — build, package, install and test helpers.
 # All destructive commands validate their target variables to prevent
 # accidental damage if a variable is empty.
 
 PACKAGE_NAME := leios.system.branding-meta-files
 DEB_BUILD_OUTPUT_DIR := deb-build
+
+
+REMAINING_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+
+# Erstellt dynamisch "leere" Regeln für diese Argumente, damit Make nicht abstürzt
+ifneq ($(REMAINING_ARGS),)
+  $(eval $(REMAINING_ARGS):;@:)
+endif
+
 
 # Guard macro: abort if a variable is empty.
 require_var = $(if $(strip $1),,$(error Required variable is empty: $2))
@@ -33,9 +42,8 @@ distclean: clean
 package:
 	@:$(call require_var,$(PACKAGE_NAME),PACKAGE_NAME)
 	@:$(call require_var,$(DEB_BUILD_OUTPUT_DIR),DEB_BUILD_OUTPUT_DIR)
-	mkdir -p "$(DEB_BUILD_OUTPUT_DIR)"
-	dpkg-buildpackage -us -uc -b
-	mv ../$(PACKAGE_NAME)_*.deb ../$(PACKAGE_NAME)_*.changes ../$(PACKAGE_NAME)_*.buildinfo "$(DEB_BUILD_OUTPUT_DIR)/" 2>/dev/null || true
+
+	./scripts/build.sh $(REMAINING_ARGS)
 
 install: package
 	@:$(call require_var,$(PACKAGE_NAME),PACKAGE_NAME)

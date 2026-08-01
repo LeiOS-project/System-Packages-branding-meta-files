@@ -20,6 +20,15 @@ if [ "$DIST" != "testing" ] && [ "$DIST" != "stable" ]; then
   exit 1
 fi
 
+
+PACKAGE_NAME="leios.system.branding-meta-files"
+DEB_BUILD_OUTPUT_DIR="deb-build"
+
+mkdir -p "${DEB_BUILD_OUTPUT_DIR}"
+
+
+mkdir -p "./data"
+
 rm -f debian/changelog
 
 # Build the changelog body from the escaped input. Lines separated by \n become
@@ -57,3 +66,4 @@ dpkg-buildpackage -us -uc -b
 # Cleanup temporary debian changelog only; keep data files
 rm -f debian/changelog
 
+mv ../${PACKAGE_NAME}_*.deb ../${PACKAGE_NAME}_*.changes ../${PACKAGE_NAME}_*.buildinfo "${DEB_BUILD_OUTPUT_DIR}/" 2>/dev/null || true
