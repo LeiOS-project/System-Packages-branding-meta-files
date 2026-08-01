@@ -2,29 +2,58 @@
 
 set -e
 
-# check if version argument is provided
-if [ -z "$1" ]; then
-  echo "Usage: $0 <version>"
+# Usage: ./scripts/build.sh <testing|stable> <version> <escaped_changelog_lines>
+# Example:
+#   ./scripts/build.sh stable 2026.08.001 "added leios.theme.plasmoids.digitalclock version 1.0.2\\nadded leios.theme.grub-theme version 1.0.0"
+
+if [ -z "$1" ] || [ -z "$2" ]; then
+  echo "Usage: $0 <testing|stable> <version> [escaped_changelog_lines]"
+  exit 1
+fi
+
+DIST="$1"
+VERSION="$2"
+CHANGELOG_LINES="${3:-}"
+
+if [ "$DIST" != "testing" ] && [ "$DIST" != "stable" ]; then
+  echo "Error: distribution must be 'testing' or 'stable'"
   exit 1
 fi
 
 rm -f debian/changelog
 
-# Create a temporary changelog with the version you want
-cat > debian/changelog <<EOF
-leios-branding-meta-files ($1) stable; urgency=medium
+# Build the changelog body from the escaped input. Lines separated by \n become
+# separate "  * <line>" changelog entries.
+CHANGELOG_BODY=""
+if [ -n "$CHANGELOG_LINES" ]; then
+  # Interpret backslash escapes (e.g. \\n) and turn every resulting line into a
+  # changelog bullet. Use a temporary file instead of process substitution for
+  # better POSIX-shell compatibility.
+  TMP_LINES=$(mktemp)
+  trap 'rm -f "$TMP_LINES"' EXIT
+  printf '%b' "$CHANGELOG_LINES" > "$TMP_LINES"
+  while IFS= read -r line || [ -n "$line" ]; do
+    CHANGELOG_BODY="${CHANGELOG_BODY}  * ${line}
+"
+  done < "$TMP_LINES"
+else
+  CHANGELOG_BODY="  * Rolling release ${VERSION}\n"
+fi
 
-  * Build for version $1
+# Write the temporary debian changelog
+printf 'leios.system.branding-meta-files (%s) %s; urgency=medium\n\n%s -- LeiOS Project Team <support@leios.dev>  %s\n\n' \
+  "$VERSION" "$DIST" "$CHANGELOG_BODY" "$(date -R)" > debian/changelog
 
- -- Linus Fischer <leicraft@leicraftmc.de>  $(date -R)
+# Update the version metadata file
+echo "${VERSION}" > data/leios_version
 
-EOF
+# Generate a per-release changelog in data as well
+printf 'leios.system.branding-meta-files (%s) %s; urgency=medium\n\n%s -- LeiOS Project Team <support@leios.dev>  %s\n' \
+  "$VERSION" "$DIST" "$CHANGELOG_BODY" "$(date -R)" > data/changelog
 
 # Build
-INSERT_LEIOS_RELEASE=$(echo $1) dpkg-buildpackage -us -uc
+dpkg-buildpackage -us -uc -b
 
-# Cleanup
+# Cleanup temporary debian changelog only; keep data files
 rm -f debian/changelog
 
-mkdir -p ./build/
-mv ../leios-branding-meta-files_* ./build/

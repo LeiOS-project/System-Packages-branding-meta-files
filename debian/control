@@ -1,21 +1,21 @@
-Source: leios-branding-meta-files
+Source: leios.system.branding-meta-files
 Section: admin
 Priority: required
-Maintainer: Linus Fischer <leicraft@leicraftmc.de>
+Maintainer: LeiOS Project Team <support@leios.dev>
+Build-Depends: debhelper-compat (= 13),
 Standards-Version: 4.7.2
-Build-Depends: debhelper-compat (= 13), debhelper (>= 13.10~)
 Homepage: https://git.leicraftmc.de/LeiOS/System-Packages/branding-meta-files
 Vcs-Git: https://git.leicraftmc.de/LeiOS/System-Packages/branding-meta-files.git
 Vcs-Browser: https://git.leicraftmc.de/LeiOS/System-Packages/branding-meta-files
 Rules-Requires-Root: no
 
-Package: leios-branding-meta-files
+Package: leios.system.branding-meta-files
 Architecture: all
-Pre-Depends: awk
 Depends: ${misc:Depends}
 Essential: yes
 Priority: required
-Multi-Arch: foreign
 Description: Metadata files for LeiOS branding to dynamically update brandings like /etc/os-release
  This package contains metadata files used for LeiOS branding, allowing dynamic updates
  of branding information such as /etc/os-release and related files.
+ It installs files like /etc/leios/system/version and /etc/leios/system/changelog,
+ and triggers /usr/share/leios/system/utils/base-files/install.sh when available.

@@ -1,4 +1,19 @@
 #!/usr/bin/make -f
 
+export DH_VERBOSE = 1
+
 %:
 	dh $@
+
+# Use only the safe 'clean' target during debhelper's clean phase.
+# 'distclean' would also remove the build output directory that we need
+# to keep while the package is being assembled.
+override_dh_auto_clean:
+	$(MAKE) clean
+
+override_dh_auto_install:
+	rm -rf debian/leios.system.branding-meta-files/etc/leios/system
+	mkdir -p debian/leios.system.branding-meta-files/etc/leios
+	cp -a data debian/leios.system.branding-meta-files/etc/leios/system
+
+override_dh_auto_build:

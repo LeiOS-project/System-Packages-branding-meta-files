@@ -1,0 +1,13 @@
+#!/bin/sh
+set -e
+
+INSTALL_SCRIPT="/usr/share/leios/system/utils/base-files/install.sh"
+
+if [ "$1" = "configure" ]; then
+    if [ -x "$INSTALL_SCRIPT" ]; then
+        echo "Running LeiOS base-files branding installer from $INSTALL_SCRIPT ..."
+        "$INSTALL_SCRIPT"
+    fi
+fi
+
+#DEBHELPER#
