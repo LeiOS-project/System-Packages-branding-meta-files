@@ -7,8 +7,6 @@ DEB_BUILD_OUTPUT_DIR := deb-build
 
 
 REMAINING_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
-
-# Erstellt dynamisch "leere" Regeln für diese Argumente, damit Make nicht abstürzt
 ifneq ($(REMAINING_ARGS),)
   $(eval $(REMAINING_ARGS):;@:)
 endif
